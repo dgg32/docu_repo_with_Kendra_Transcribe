@@ -1,0 +1,12 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "sixing-doc-kendra-search-4"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-wszcn3398x5f"
+s3_prefix = "sixing-doc-kendra-search-4"
+region = "us-east-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_NAMED_IAM"
+parameter_overrides = "DocumentsBucketName=\"sixing-kendra-bucket-2\" StagingBucketName=\"sixing-kendra-bucket-stage-2\" QueuedBucketName=\"sixing-kendra-bucket-queuing-2\""
+image_repositories = []
