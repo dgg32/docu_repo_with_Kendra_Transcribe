@@ -22,7 +22,6 @@ def lambda_handler(event, context):
     response = client.start_transcription_job(
         TranscriptionJobName=jobName,
         LanguageCode='en-US',
-        MediaFormat='mp3',
         Media={
             'MediaFileUri': s3Path
         },

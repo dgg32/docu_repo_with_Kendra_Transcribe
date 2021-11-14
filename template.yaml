@@ -200,8 +200,8 @@ Resources:
             Filter: 
               S3Key:
                 Rules:
-                  - Name: suffix
-                    Value: '.png'
+                  - Name: prefix
+                    Value: graph
 
   ProcessAudioFunction:
     Type: AWS::Serverless::Function 
@@ -232,8 +232,8 @@ Resources:
             Filter: 
               S3Key:
                 Rules:
-                  - Name: suffix
-                    Value: '.mp3'
+                  - Name: prefix
+                    Value: audio
 
 
   ProcessDOCXFunction:
@@ -260,8 +260,8 @@ Resources:
             Filter: 
               S3Key:
                 Rules:
-                  - Name: suffix
-                    Value: '.docx'
+                  - Name: prefix
+                    Value: docx
 
   ProcessPDFFunction:
     Type: AWS::Serverless::Function 
@@ -287,8 +287,8 @@ Resources:
             Filter: 
               S3Key:
                 Rules:
-                  - Name: suffix
-                    Value: '.pdf'
+                  - Name: prefix
+                    Value: pdf
   
 ## Kendra
 
@@ -401,9 +401,10 @@ Resources:
       ServiceToken: !GetAtt AWSLambdaFunction.Arn
       the_bucket: !Ref DocumentsBucket
       dirs_to_create: 
-        - reportCsv
+        - csv
         - audio
-        - paper
+        - docx
+        - pdf
         - graph
   AWSLambdaFunction:
      Type: "AWS::Lambda::Function"
@@ -555,7 +556,7 @@ Resources:
           - Path: !Join 
                     - ''
                     - - !Ref DocumentsBucket
-                      - /reportCsv
+                      - /csv
       SchemaChangePolicy:
         UpdateBehavior: "UPDATE_IN_DATABASE"
         DeleteBehavior: "LOG"
