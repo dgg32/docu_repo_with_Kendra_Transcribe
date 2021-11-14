@@ -290,6 +290,8 @@ Resources:
                   - Name: suffix
                     Value: '.pdf'
   
+## Kendra
+
   KendraIndexRole:
     Type: 'AWS::IAM::Role'
     Properties:
@@ -392,7 +394,7 @@ Resources:
         - Arn
       Type: S3
 
-
+## create folders in S3
   S3CustomResource:
     Type: Custom::S3CustomResource
     Properties:
@@ -522,7 +524,7 @@ Resources:
       CatalogId: !Ref AWS::AccountId
       DatabaseInput:
         Name: "dbcrawler"
-        Description: "Save the csv Report"
+        Description: "Save the csv report"
  
   MyGlueClassifier:
     Type: AWS::Glue::Classifier
@@ -575,17 +577,17 @@ Outputs:
     Description: Queued Bucket Name
     Value: !Ref QueuedBucket
 
-  AddToESFunctionARN:
-    Description: This AddToESFunction function ARN.
-    Value: !GetAtt AddToESFunction.Arn
+  # AddToESFunctionARN:
+  #   Description: This AddToESFunction function ARN.
+  #   Value: !GetAtt AddToESFunction.Arn
 
-  AddToESFunctionRoleARN:
-    Description: This ARN needs permission in the Elasticsearch configuration.
-    Value: !GetAtt AddToESFunctionRole.Arn
+  # AddToESFunctionRoleARN:
+  #   Description: This ARN needs permission in the Elasticsearch configuration.
+  #   Value: !GetAtt AddToESFunctionRole.Arn
 
-  queryESFunctionARN:
-    Description: This ARN needs permission in the Elasticsearch configuration.
-    Value: !GetAtt queryESFunction.Arn
+  # queryESFunctionARN:
+  #   Description: This ARN needs permission in the Elasticsearch configuration.
+  #   Value: !GetAtt queryESFunction.Arn
 
   OpenSearchEndpoint:
     Description: The Endpoint for OpenSearch
