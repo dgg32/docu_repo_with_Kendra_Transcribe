@@ -1,8 +1,8 @@
 # S3-to-Elasticsearch - The Serverless Document Repository
 
-This repo contains an AWS SAM template that deploys a serverless application. This application uses Amazon ML services like Comprehend and Rekognition to index documents and images, and then sends the results to Elasticsearch for fast indexing. Later, Kendra and Glue were also added to provide more search options.
+This repo contains an AWS SAM template that deploys a serverless application. This application uses Amazon ML services like Comprehend and Textract to index documents and images, Transcribe for audios and videos, and then sends the results to Elasticsearch for fast indexing. Later, Kendra and Glue were also added to provide more search options.
 
-This architecture is designed for large numbers of documents by using queuing. For full details on how this works, read the article at: https://aws.amazon.com/blogs/compute/creating-a-searchable-enterprise-document-repository/.
+This architecture is designed for large numbers of documents by using queuing. For full details on how this works, read the article at: https://aws.plainenglish.io/make-an-ai-powered-enterprise-document-repository-on-aws-8a25fad48fd2 (inspired mainly by this[https://aws.amazon.com/blogs/compute/creating-a-searchable-enterprise-document-repository/]).
 
 Important: this application uses various AWS services and there are costs associated with these services after the Free Tier usage - please see the [AWS Pricing page](https://aws.amazon.com/pricing/) for details. You are responsible for any AWS costs incurred. No warranty is implied in this example.
 
@@ -21,18 +21,23 @@ Important: this application uses various AWS services and there are costs associ
 ├── processDOCX                 <-- Source code for a lambda function
 │   └── app.js                  <-- Main Lambda handler
 │   └── package.json            <-- NodeJS dependencies and scripts
-├── processJPG                  <-- Source code for a lambda function
+├── processGraph                <-- Source code for a lambda function
 │   └── app.js                  <-- Main Lambda handler
 │   └── package.json            <-- NodeJS dependencies and scripts
 ├── processPDF                  <-- Source code for a lambda function
 │   └── app.js                  <-- Main Lambda handler
 │   └── package.json            <-- NodeJS dependencies and scripts
+├── processAudio                <-- Source code for a lambda function
+│   └── app.py                  <-- Main Lambda handler
 ├── template.yaml               <-- SAM template
 ```
+
+The rest of yaml are sub-CloudFormation templates that you can use to set up a part of the pipeline.
 
 ## Requirements
 
 * AWS CLI already configured with Administrator permission
+* AWS SAM CLI
 * [NodeJS 12.x installed](https://nodejs.org/en/download/)
 
 ## Installation Instructions
@@ -46,13 +51,13 @@ Important: this application uses various AWS services and there are costs associ
 sam build
 sam deploy --guided --capabilities CAPABILITY_NAMED_IAM
 ```
-Follow the prompts in the deploy process to set the stack name, AWS Region, unique bucket names, Elasticsearch domain endpoint, and other parameters.
+Follow the prompts in the deploy process to set the stack name, AWS Region, unique bucket names, and other parameters.
 
 ## How it works
 
-* Ensure you have an Elasticsearch instance running, and have granted permission to the ARN for the "AddToESFunction" Lambda function in this stack. 
-* Upload a PDF, DOCX or JPG file to the target Documents bucket.
+* Upload the files to the target Documents bucket folders.
 * After a few seconds you will see the index in Elasticsearch has been updated with labels and entities for the object.
+* Manually kick-start Kendra and Glue
 
 ==============================================
 
