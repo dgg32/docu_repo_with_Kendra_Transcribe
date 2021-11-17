@@ -1,4 +1,4 @@
-# S3-to-Elasticsearch - The Serverless Document Repository
+# docu_repo_with_Kendra_Transcribe - Document Repository for audios, videos, CSV, PNG, DOCX and PDF
 
 This repo contains an AWS SAM template that deploys a serverless application. This application uses Amazon ML services like Comprehend and Textract to index documents and images, Transcribe for audios and videos, and then sends the results to Elasticsearch for fast indexing. Later, Kendra and Glue were also added to provide more search options.
 
